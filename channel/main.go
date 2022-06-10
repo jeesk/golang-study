@@ -1,35 +1,37 @@
-package channel
+package main
 
 import (
 	"fmt"
 	"time"
 )
 
-func Chann(ch chan int, stopCh chan bool) {
-	for j := 0; j < 10; j++ {
-		ch <- j
-		time.Sleep(time.Second)
-	}
-	stopCh <- true
-}
+//
 
 func main() {
+	testReadData()
+}
 
-	ch := make(chan int)
-	c := 0
-	stopCh := make(chan bool)
-
-	go Chann(ch, stopCh)
-end:
-	for {
-		select {
-		case c = <-ch:
-			fmt.Println("Receive C", c)
-		case s := <-ch:
-			fmt.Println("Receive S", s)
-		case _ = <-stopCh:
-			goto end
+func testTimer() {
+	chan1 := make(chan int, 5)
+	go func() {
+		for i := 0; i < 100; i++ {
+			chan1 <- 1
+			fmt.Println("write data")
 		}
-	}
+	}()
 
+	time.Sleep(100 * time.Second)
+}
+
+func testReadData() {
+	chan1 := make(chan string, 2)
+	for i := 0; i < 2; i++ {
+		chan1 <- fmt.Sprint(i)
+	}
+	close(chan1)
+	for i := 0; i < 3; i++ {
+		fmt.Println(<-chan1)
+	}
+	fmt.Println("login")
+	time.Sleep(5 * time.Second)
 }
