@@ -29,16 +29,21 @@ func newTimerTest() {
 
 // 周期发送
 func newTickerTest() {
-	fmt.Println("timerTest当前时间为:", time.Now())
-	timer := time.NewTicker(1 * time.Second)
+	//fmt.Println("timerTest当前时间为:", time.Now())
+	timer := time.NewTicker(2 * time.Second)
 	go func() {
 
 		for {
-			t := <-timer.C
-			fmt.Println("timerTest当前时间为:", t)
+			select {
+			case t := <-timer.C:
+				fmt.Println("timerTest当前时间为:", t)
+				break
+			}
 		}
+
 	}()
+
 	for {
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Second * 10)
 	}
 }
