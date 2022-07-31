@@ -6,7 +6,7 @@ func main() {
 	// 1. 匹配变量
 	str := "hello"
 	switch str {
-	case "hello":
+	case "hello", "world":
 		fmt.Println("hello")
 	default:
 		fmt.Println("default")
@@ -15,7 +15,7 @@ func main() {
 	// 匹配布尔表达式
 	num := 10
 	switch {
-	case num > 10:
+	case num > 10, num < 1000:
 		fmt.Println("大于10")
 	case num < 10:
 		fmt.Println("小于10")
@@ -38,4 +38,16 @@ func main() {
 		fmt.Println("default")
 	}
 
+	getTpye(":12")
+
+}
+func getTpye(obj any) {
+	switch obj.(type) {
+	default:
+		fmt.Println("找不到类型")
+	case int:
+		fmt.Println("我是int类型", obj)
+	case string:
+		fmt.Println("我是string类型", obj)
+	}
 }

@@ -12,13 +12,21 @@ const (
 )
 
 func main() {
-	fmt.Println(i, j, k, l)
-	map1 := make(map[string]string)
-	map1["hello"] = "1"
-	map1["word"] = "2"
-	for s, s2 := range map1 {
-		fmt.Println(s, s2)
-	}
+	// 1.申明数组，间接赋值
+	var arr [2]int
+	arr[1] = 1
+	fmt.Printf("arr[1]: %v \n", arr[1])
+	// 2. 申明数组直接赋值
+	var arr2 = [3]int{1, 2, 3}
+	fmt.Printf("arr2: %v %v %v \n", arr2[0], arr2[1], arr2[2])
+	// 使用索引初始化数组, 指定某个索引的value的值
+	var arr3 = [3]int{1: 9}
+	fmt.Println("打印arr3", fmt.Sprint(arr3))
+
+	// 不填写数组的个数,初始化所有的value
+	var arr4 = [...]int{3: 5}
+	fmt.Println("打印arr4")
+	fmt.Println(fmt.Sprint(arr4))
 
 }
 
@@ -27,12 +35,14 @@ func addSlice() {
 	myList := make([]int, 0)
 	myList = append(myList, 1, 2, 3)
 	fmt.Println(fmt.Sprint(myList))
+
 	// 初始化为3, 手动赋值
 	myList2 := make([]int, 3)
 	myList2[0] = 0
 	myList2[1] = 1
 	myList2[2] = 2
 	fmt.Println(fmt.Sprint(myList2))
+
 	// 初始化为2， 使用append, 这个时候第一个值不会被覆盖
 	myList3 := make([]int, 2)
 	myList3 = append(myList3, 1, 2)
@@ -68,15 +78,4 @@ func testArr() {
 	arr5 := [...]int{10: 100}
 	fmt.Println(arr5)
 
-}
-
-func testSlice() {
-	// 创建2个切片
-	slice1 := []int{2, 2}
-	slice2 := []int{2, 2}
-	fmt.Println(slice1)
-	slice1 = append(slice1, 1, 2, 3)
-	// 切片加上... 变成可变数组
-	ints := append(slice1, slice2...)
-	fmt.Println(ints)
 }

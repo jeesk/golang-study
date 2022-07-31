@@ -17,7 +17,7 @@ type Stu struct {
 
 func ExampleKind1() {
 
-	fmt.Println(reflect.ValueOf(nil).IsNil())
+	//fmt.Println(reflect.ValueOf(nil).IsNil())
 
 	// 通过valueOf(v)>kind 获取数据类型
 	for _, v := range []any{Stu{name: "demoP", age: 12}, Stu{name: "demoNOP", age: 123}, "hi", 42, func(name string) bool {

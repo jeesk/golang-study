@@ -20,14 +20,6 @@ func PrintType(a interface{}) {
 func main() {
 	// 隐式转换成interface{}
 	PrintType(12)
-	hello := "hello"
-	switch interface{}(hello).(type) {
-	case int:
-
-		fmt.Println("int")
-	case string:
-		fmt.Println("string")
-	}
 	TypeAssert()
 }
 
