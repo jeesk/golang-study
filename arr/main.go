@@ -27,9 +27,8 @@ func main() {
 	var arr4 = [...]int{3: 5}
 	fmt.Println("打印arr4")
 	fmt.Println(fmt.Sprint(arr4))
-
+	testArr()
 }
-
 func addSlice() {
 	// 初始化为0
 	myList := make([]int, 0)
@@ -47,6 +46,7 @@ func addSlice() {
 	myList3 := make([]int, 2)
 	myList3 = append(myList3, 1, 2)
 	fmt.Println(fmt.Sprint(myList3))
+	testArr()
 }
 
 func arr2Slice() {
@@ -77,5 +77,12 @@ func testArr() {
 	// 直接初始化的时候可以使用 ... 代替个数， 下面表示最大有10个，第10个元素的值是100
 	arr5 := [...]int{10: 100}
 	fmt.Println(arr5)
+	// 第四种， 第2index 是3,第一个index 2,表示最大有3个元素, : 前面表示索引
+	arr6 := [...]int{2: 3, 1: 10}
+	fmt.Println(arr6)
+	// 第5个 混合了索引赋值和顺序初始化 4表示索引的位置是5
+	arr7 := [...]int{1, 2, 4: 5, 100}
+	fmt.Println("five arr ", arr7)
+	// 因为数组的长度是数组的一部分
 
 }

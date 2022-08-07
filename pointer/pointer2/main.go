@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"unsafe"
 )
 
@@ -20,6 +21,8 @@ func main() {
 	fmt.Println(sizeof)
 	age := (*int)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + sizeof + 1*unsafe.Sizeof(int(0))))
 	fmt.Println(*age)
+	stu1 := (*Stu)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + sizeof + 1*unsafe.Sizeof(int(0)) + unsafe.Sizeof(reflect.ValueOf(stu.))))
+	fmt.Println(*age)
 }
 
 type Stu struct {
@@ -27,6 +30,7 @@ type Stu struct {
 	okg Pkg
 	//Pkg
 	age int
+
 }
 
 type Pkg struct {

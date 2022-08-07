@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	"reflect"
 	"testing"
 	"unsafe"
 )
@@ -11,36 +11,41 @@ func TestFunc(t *testing.T) {
 	testMutex()
 }
 
-// 测试指针操作
 func testMutex() {
-	var l sync.Mutex
-	p := unsafe.Pointer(&l)
-	up0 := uintptr(p)
-	// 获取第一个参数
-	ps := (*int32)(p)
-	*ps = 1
-
-	p = unsafe.Pointer(up0 + uintptr(4))
-
-	pm := (*int32)(p)
-	*pm = 100
-	l.Unlock()
-	fmt.Println("unlocked")
 
 	stu := &Stu{
 		name: "song",
-		age:  12,
+		age:  "12",
+		s:    Stu1{name: "stu1"},
 	}
-
+	stu.st1 = &Stu{
+		name: "i amstu.st1",
+		age:  "",
+		s:    Stu1{},
+		st1:  nil,
+	}
 	// 获取第一个
-	fmt.Println(*(*string)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)))))
-	i := *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + unsafe.Sizeof("")))
+	fmt.Println((*Stu)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)))).name)
+	i := *(*string)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + unsafe.Sizeof("")))
 	// 获取第二个
 	fmt.Println(i)
-
+	// 获取第三个
+	ci := (*Stu1)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + unsafe.Sizeof("") + unsafe.Sizeof("")))
+	fmt.Println(ci.name)
+	// 获取第四个
+	ci1 := *(*Stu)(unsafe.Pointer(uintptr(unsafe.Pointer(stu)) + unsafe.Sizeof("") + unsafe.Sizeof("") + unsafe.Sizeof(reflect.ValueOf(stu.s))))
+	fmt.Println(ci1)
+	// https://v2ex.com/t/871263#;  TODO 暂时先放过
+	fmt.Println()
 }
 
 type Stu struct {
 	name string
-	age  int
+	age  string
+	s    Stu1
+	st1  *Stu
+}
+
+type Stu1 struct {
+	name string
 }
