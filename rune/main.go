@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -22,5 +23,11 @@ func main() {
 	//len(str): 12
 	//RuneCountInString: 8
 	//rune: 8
-
+	five := "12"
+	atoi, err := strconv.Atoi(five)
+	if err != nil {
+	} else {
+		itoa := strconv.Itoa(atoi)
+		fmt.Println(itoa)
+	}
 }

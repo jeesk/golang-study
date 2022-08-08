@@ -124,6 +124,7 @@ func Test_arr(t *testing.T) {
 	}()
 	<-c2
 	//
+	fmt.Printf("b: %T ", s3)
 
 }
 
