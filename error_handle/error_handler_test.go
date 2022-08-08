@@ -6,15 +6,23 @@ import (
 	"testing"
 )
 
-func TestError1(t *testing.T) {
-	err := errors.New("我是错误")
-	err1 := fmt.Errorf("包裹了错误%w", err)
-	err2 := errors.Unwrap(err1)
-	print(errors.Is(err, err2))
+type Demo struct {
 }
 
-/*
-func TestText(t *testing.T) {
+func TestError1(t *testing.T) {
+	// 创建一个error 对象
+	err := errors.New("我是错误")
+	errx := errors.New("我是错误")
+	// warper
+	_ = fmt.Errorf("包裹了错误%w", nil)
+	/*	err2 := errors.Unwrap(errW)*/
+	if errors.Is(err, errx) {
+		fmt.Print("相等")
+	}
+
+}
+
+/*func TestText(t *testing.T) {
 	books := []string{
 		"Book1",
 		"Book222222",
@@ -30,13 +38,16 @@ func TestText(t *testing.T) {
 			// As - 获取错误的具体实现
 			var myError = new(CustomError)
 			// Is - 判断错误是否为指定类型
+			if errors.Cause(err) == NewCustomError(BookHasBeenBorrowedError) {
+				fmt.Printf("类型相同")
+			}
 			if errors.Is(err, NewCustomError(BookHasBeenBorrowedError)) {
 				fmt.Printf("IS中的信息：%s 已经被借走了, 只需按Info处理!\n", bookName)
 				err = nil
 			} else {
 				// 如果已有堆栈信息，应调用WithMessage方法
-				newErr := errors.WithMessage(err, "WithMessage err")
-				fmt.Printf("IS中的信息：%s 未找到，应该按Error处理! ,newErr is %s\n", bookName, newErr)
+				//newErr := errors.WithMessage(err, "WithMessage err")
+				fmt.Printf("IS中的信息：%s 未找到，应该按Error处理! ,newErr is %s\n", bookName, myError)
 			}
 			// As - 解析错误内容
 			if errors.As(err, &myError) {
@@ -59,4 +70,5 @@ func searchBook(bookName string) error {
 	}
 	// 3 找到书 - 不需要任何处理
 	return nil
-}*/
+}
+*/
