@@ -30,4 +30,8 @@ func main() {
 		itoa := strconv.Itoa(atoi)
 		fmt.Println(itoa)
 	}
+	//将int 类型转换成字符串
+	var num1 int64 = 123
+	println(strconv.FormatInt(num1, 10))
+
 }
