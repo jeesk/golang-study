@@ -1,16 +1,10 @@
-
+package main
 
 import (
 	"fmt"
 	"testing"
 )
 
-
-
-import (
-"fmt"
-"testing"
-)
 type TB struct {
 	testing.TB
 }
