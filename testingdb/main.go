@@ -16,4 +16,15 @@ func (p *TB) Fatal(args ...interface{}) {
 func main() {
 	var tb testing.TB = new(TB)
 	tb.Fatal("Hello, playground")
+
+	var i = IF(true, 1, 2)
+	fmt.Println(i)
+
+}
+
+func IF[T any](cond bool, a, b T) T {
+	if cond {
+		return a
+	}
+	return b
 }
