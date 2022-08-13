@@ -84,18 +84,25 @@ func (p *Publisher) sendTopic(
 	if topic != nil && !topic(v) {
 		return
 	}
-	// sekect 随机选择case 的发送和接受可以被立刻操作。 请教方浩成或者其他人。 这里的select 关键字使用
+	//
 	var start = time.Now()
+
+	//after1 := time.After(p.timeout)
+
 	select {
 	// 这里为什么要使用时间等待呢？ select 关键字的理解。 如果下面两个都会被阻塞。直到有一个可以继续可以执行下去。
 	// 假如这里阻塞， 切换到time.After 的时候， 是不是可以理解 这个管道其实状态已经被保存下来了。
-	after1 := time.After(p.timeout)
 	case sub <- v:
 		fmt.Println("执行一次发送", v)
-	case asdf := <- *after1 :
+	case asdf := <-block1():
 		fmt.Println("等待一次 耗时", time.Since(start), asdf)
 	}
 
 	elapsed := time.Since(start)
 	fmt.Println("该函数执行完成耗时：", elapsed)
+}
+
+func block1() <-chan time.Time {
+	fmt.Println("execute ")
+	return time.After(10 * time.Second)
 }
