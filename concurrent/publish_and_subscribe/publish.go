@@ -84,18 +84,16 @@ func (p *Publisher) sendTopic(
 	if topic != nil && !topic(v) {
 		return
 	}
-	//
 	var start = time.Now()
 
-	//after1 := time.After(p.timeout)
-
+	after := time.After(p.timeout)
 	select {
-	// 这里为什么要使用时间等待呢？ select 关键字的理解。 如果下面两个都会被阻塞。直到有一个可以继续可以执行下去。
-	// 假如这里阻塞， 切换到time.After 的时候， 是不是可以理解 这个管道其实状态已经被保存下来了。
+	//var after1 <-chan time.Time = time.After(p.timeout)
+
 	case sub <- v:
 		fmt.Println("执行一次发送", v)
-	case asdf := <-block1():
-		fmt.Println("等待一次 耗时", time.Since(start), asdf)
+	case v, ok := <-after:
+		fmt.Println("等待一次 耗时", time.Since(start), v, ok)
 	}
 
 	elapsed := time.Since(start)
