@@ -48,6 +48,8 @@ func TestSlice(t *testing.T) {
 	var x int32 = 1
 	fmt.Println("a[x+1:]: ", a[x+1:])
 	fmt.Println("a[x:]:", a[x:])
+
+	// 使用copy 将 将数据移动, 前面目标数组，后面源数组。 copy 将后面源数组的内容复制到目标数组。 两个坐标的差异决定了到底是左移还是一边移动
 	// 将x: 开始的数据向后移动一位
 	copy(a[x+1:], a[x:])
 	fmt.Println(a)
@@ -103,6 +105,9 @@ func Test_deleteSlice(t *testing.T) {
 	a = a[:copy(a, a[1:])]
 	fmt.Printf("使用copy 覆盖前面一个元素 %v \n", a)
 
+	// 删除元素有2种方法一种是，  使用append(截取两边的数据） 然后加起来。
+	//  另外一种使用copy ,
+
 	// delete   medum and delete head is speeccal way
 	// append 删除中间的元素就是， 截取左边的元素，然后截取右边的元素， 然后append 起来
 	h := []int{1, 2, 3, 4, 5, 6}
@@ -111,6 +116,7 @@ func Test_deleteSlice(t *testing.T) {
 	// 删除索引2开始2个元素
 	h = append(h[:i], h[i+deleteL:]...) // 删除中间 N 个元素
 	fmt.Println("使用append 删除索引为2开始的2个元素", h)
+
 	// 使用copy 将末尾的元素从要删除的元素开始覆盖即可。 然后从删除的index的位置，加上被删除的元素的个数。
 	i2 := copy(h[i:], h[i+deleteL:])
 	fmt.Println(i2)
