@@ -141,7 +141,7 @@ func TrimSpace(b []byte) []byte {
 	return b
 }
 
-func TestPrint(t *testing.TB) {
+func TestPrint(t *testing.T) {
 	var a = []interface{}{1, "abd"}
 	// 解包调用的话， 只有 1,adb
 	fmt.Println(a...)
@@ -150,9 +150,30 @@ func TestPrint(t *testing.TB) {
 	fmt.Println(a)
 }
 
-func IF(condition bool, firstValue any, secondValue any) any {
+func If(condition bool, a any, b any) any {
 	if condition {
-		return firstValue
+		return a
 	}
-	return secondValue
+	return b
+}
+
+func IfNil(cond any, a any, b any) any {
+	if cond == nil {
+		return a
+	}
+	return b
+}
+func IfEmpty(obj interface{}, a any, b any) any {
+	if obj == nil {
+		return a
+	}
+	switch obj.(type) {
+	case string:
+		b2 := len(obj.(string)) > 0
+		return If(b2, a, b)
+	}
+}
+func Test_if(t *testing.T) {
+	ifNil := IfNil("asdf", "is nil", "not nil")
+	fmt.Println(ifNil)
 }
