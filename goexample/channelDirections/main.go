@@ -15,5 +15,4 @@ func main() {
 	ping(pings, "passwd message")
 	pong(pings, pongs)
 	fmt.Println(<-pongs)
-	// TODO https://gobyexample.com/channel-directions
 }

@@ -19,6 +19,7 @@ func testMutex() {
 		s:    Stu1{name: "stu1"},
 	}
 	stu.st1 = &Stu{
+
 		name: "i amstu.st1",
 		age:  "",
 		s:    Stu1{},
